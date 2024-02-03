@@ -11,10 +11,11 @@ services:
   mysql_db:
     image: mysql:8.2
     environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: Task_Managment
+      MYSQL_ROOT_PASSWORD: root
+
     ports:
-    - 3307:3306
+    - 3306:3306
   
   phpmyadmin:
     image: phpmyadmin:latest
