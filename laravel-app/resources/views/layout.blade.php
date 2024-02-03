@@ -8,8 +8,9 @@
     <!-- @vite('resources/css/app.css') -->
     @vite(['resources/css/app.css','resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-    <title>@yield('title')</title>
     <script src="https://unpkg.com/flowbite@1.4.4/dist/flowbite.js"></script>
+    <title>@yield('title')</title>
+
 </head>
 
 <body>
