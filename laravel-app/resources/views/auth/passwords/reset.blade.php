@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Resets Passwords')
 @section('content')
 <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
@@ -10,8 +10,8 @@
             <input type="hidden" name="token" value="{{ $token }}">
 
             <div class="mb-4">
-                <label for="email"
-                    class="block text-gray-700 text-sm font-medium mb-2">{{ __('Email Address') }}</label>
+                <label for="email" class="block text-gray-700 text-sm font-medium mb-2">{{ __('Email Address')
+                    }}</label>
                 <input id="email" type="email" class="form-input @error('email') border-red-500 @enderror" name="email"
                     value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
                 @error('email')
@@ -29,8 +29,8 @@
             </div>
 
             <div class="mb-4">
-                <label for="password-confirm"
-                    class="block text-gray-700 text-sm font-medium mb-2">{{ __('Confirm Password') }}</label>
+                <label for="password-confirm" class="block text-gray-700 text-sm font-medium mb-2">{{ __('Confirm
+                    Password') }}</label>
                 <input id="password-confirm" type="password" class="form-input" name="password_confirmation" required
                     autocomplete="new-password">
             </div>
