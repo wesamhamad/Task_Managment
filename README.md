@@ -1,20 +1,34 @@
-# Task_Managment
+# Task Management Application
+The project is a task management application where users can create and manage tasks. The system design consists of the following components:
+
+### Features
+
+- **User Authentication & Authorization**:
+  - Users can register, log in, and log out.
+  - Different user roles, such as admin and regular user, are defined.
+  - User authentication and authorization are implemented using Laravel's built-in authentication system.
+
+- **Task Management**:
+  - Users can create, view, list, update, and delete tasks.
+  - Tasks can be assigned to specific users and categorized into different projects.
+  - Users can set task deadlines, add descriptions.
+
+- **Project Management**:
+  - Admin users can create and manage projects.
+  - Projects can have multiple tasks associated with them.
+  - Admin can assign tasks to different projects.
+
+- **Validation and Error Handling**:
+  - Implement server-side validation for accurate task data entry.
+  - Display error messages for validation errors and other issues.
 
 
-## Build and Run
 
-The project is containerized using Docker and Docker Compose.
-I explain how to build it and deploy it within the context of
-compose. If you wish to build it from scratch I recommend you
-look at the build recipe from `Dockerfile` to build it manually. 
+## Contributing
 
-### `.env` file:
+Contributions are welcome from the community!.
 
-Before you start you make sure that these 2 variables are provide a value in a `.env` file, also make sure that the file in same level as `docker-compose.yml`.
 
-```ini
+## License
 
-# db configurations
-DB_USERNAME = your_db_name
-MYSQL_ROOT_PASSWORD = your_db_password
-```
+This project is licensed under the [MIT License](LICENSE).
