@@ -17,11 +17,15 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $usertype = Auth::user()->usertype;
-        if ($usertype == 'admin') {
-            return $next($request);
-        }
-        abort(401);
+        if (Auth::check()) {
+            $usertype = Auth::user()->usertype;
 
+            if ($usertype == 'admin') {
+                return $next($request);
+            }
+        }
+
+        abort(401, 'Unauthorized');
     }
+
 }
