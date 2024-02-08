@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 // use App\Models\Project;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Tasks;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 // use Illuminate\Http\Request;
 use App\Http\Requests\TaskRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
+
+// use Illuminate\Support\Facades\Log;
 
 class TasksController extends Controller
 {
@@ -21,7 +23,9 @@ class TasksController extends Controller
     public function index()
     {
         try {
-            $user_tasks = Tasks::all();
+            // Fetch tasks created by the authenticated user
+            $current_user = Auth::id();
+            $user_tasks = Tasks::where('created_by', $current_user)->get();
             return view('user.home', compact('user_tasks'));
         } catch (\Exception $e) {
             return redirect('user-home')->with('flash_error_message', 'An error occurred while fetching tasks.');
@@ -54,13 +58,10 @@ class TasksController extends Controller
             // Validate the request
             $validatedData = $request->validated();
 
-            Tasks::create([
-                'name' => $validatedData['name'],
-                'assignTo' => $validatedData['assignTo'],
-                'deadlin' => $validatedData['deadlin'],
-                'status' => $validatedData['status'],
-                'description' => $validatedData['description'],
-            ]);
+            // Store the authenticated user's ID along with the task
+            $validatedData['created_by'] = Auth::id();
+
+            Tasks::create($validatedData);
 
             // Redirect to the tasks index page with a success message
             return redirect()->route('tasks.index')->with('success_message', 'Task added successfully!');

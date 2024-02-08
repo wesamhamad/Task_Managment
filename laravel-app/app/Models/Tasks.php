@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tasks extends Model
 {
     protected $table = 'user_tasks';
-    protected $fillable = ['name', 'assignTo', 'deadlin', 'status', 'description'];
+    protected $fillable = ['name', 'assignTo', 'deadlin', 'status', 'description', 'created_by'];
 
     // Defines a many-to-many relationship between tasks and projects.
     public function projects()
