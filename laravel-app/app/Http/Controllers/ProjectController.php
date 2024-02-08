@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tasks;
-use Illuminate\Http\Request;
 use App\Models\Project;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\RedirectResponse;
-
+use App\Http\Requests\StoreProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -23,8 +23,8 @@ class ProjectController extends Controller
     public function index()
     {
         try {
-            //Load tasks with projects to minimize the number of queries.
-            $projects = Project::with('tasks')->get();
+            // Retrieve all projects with their associated tasks, filtered by the authenticated user who created them.
+            $projects = Project::with('tasks')->where('created_by', Auth::id())->get();
             return view('admin.adminhome', compact('projects'));
         } catch (Exception $e) {
             // Redirect with an error message if there's an issue fetching projects.
@@ -47,11 +47,11 @@ class ProjectController extends Controller
     /**
      * Store a newly created project in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreProjectRequest  $request
      * @return \Illuminate\Http\Response|RedirectResponse
      */
 
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
         try {
             // Start a transaction, to roll back due to an error
@@ -60,6 +60,7 @@ class ProjectController extends Controller
             $project = Project::create([
                 'title' => $request->title,
                 'description' => $request->description,
+                'created_by' => Auth::id(),
             ]);
 
             // Check if tasks are provided and attach them to the project

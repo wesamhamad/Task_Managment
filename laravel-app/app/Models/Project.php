@@ -11,7 +11,9 @@ class Project extends Model
     protected $fillable = [
         'title',
         'description',
+        'created_by',
     ];
+
 
     // Defines a many-to-many relationship with the Tasks model.
     public function tasks()

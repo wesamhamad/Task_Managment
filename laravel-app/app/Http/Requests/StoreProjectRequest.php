@@ -11,7 +11,7 @@ class StoreProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class StoreProjectRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'tasks' => 'nullable|array',
+            'tasks' => 'required|array',
             'tasks.*' => 'exists:user_tasks,id',
         ];
     }
