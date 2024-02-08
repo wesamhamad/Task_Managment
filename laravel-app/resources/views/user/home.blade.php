@@ -67,7 +67,7 @@
                             </thead>
                             <tbody>
                                 @if(isset($user_tasks))
-                                @foreach($user_tasks as $item)
+                                @forelse($user_tasks as $item)
                                 <tr
                                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
@@ -129,8 +129,13 @@
                                     </td>
 
                                 </tr>
-                                @endforeach
+                                @empty
+                                <td class="px-6 py-4 text-gray-900">
+                                    No tasks yet.
+                                </td>
+                                @endforelse
                                 @endif
+
                             </tbody>
                         </table>
                     </div>
