@@ -14,6 +14,8 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
+        $response->assertSee('Welcome to TMS');
+
         $response->assertStatus(200);
     }
 }
