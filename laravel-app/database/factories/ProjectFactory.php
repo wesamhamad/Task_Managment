@@ -1,0 +1,27 @@
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Project>
+ */
+class ProjectFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'title' => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
+            'created_by' => function () {
+                return \App\Models\User::factory()->create(['usertype' => 'admin'])->id;
+            },
+        ];
+    }
+}
