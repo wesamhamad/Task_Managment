@@ -1,13 +1,14 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\ProjectController;
 
-// Redirect users to login page as default
+// Redirect users to login pag as default
 Route::get('/', function () {
-    return view('auth.login');
-})->name('login');
+    return view('welcome');
+});
 
 // Authentication Routes
 Auth::routes();
@@ -29,4 +30,5 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin-home/create', [ProjectController::class, 'create'])->name('projects.create');
     Route::post('/admin-home/store', [ProjectController::class, 'store'])->name('projects.store');
     Route::delete('/admin-home/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+    Route::post('/admin-home/{project}/confirm-destroy', [ProjectController::class, 'confirmAndDestroy'])->name('projects.confirm-destroy');
 });
