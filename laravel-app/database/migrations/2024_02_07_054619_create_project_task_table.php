@@ -26,3 +26,14 @@ return new class extends Migration {
         Schema::dropIfExists('project_task');
     }
 };
+
+
+// +----------------+       +--------------+       +-------------+
+// |   projects     |       | project_task |       |  user_tasks |
+// +----------------+       +--------------+       +-------------+
+// | id (PK)        |1    * | id           |*    1 | id (PK)     |
+// | title          |-------| project_id   |-------| name        |
+// | description    |       | task_id      |       | assignTo    |
+// | created_at     |       | created_at   |       | deadline    |
+// | updated_at     |       | updated_at   |       | status      |
+// +----------------+       +--------------+       +-------------+
