@@ -836,8 +836,17 @@
         @if (Route::has('login'))
         <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
             @auth
-            <a href="{{ route('login') }}"
-                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
+            <li>
+                @guest
+                <!-- Direct guests to the login page -->
+                <a href="{{ route('login') }}"
+                    class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700">Home</a>
+                @else
+                <!-- Direct logged-in users to the appropriate "Home" page based on their user type -->
+                <a href="{{ Auth::user()->usertype == 'admin' ? route('projects.index') : route('tasks.index') }}"
+                    class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700">Home</a>
+                @endguest
+            </li>
             @else
             <a href="{{ route('login') }}"
                 class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log
