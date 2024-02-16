@@ -40,13 +40,11 @@
                             </td>
 
                             <td class="px-6 py-4 ">
-                                <form action="{{ route('projects.destroy', $project->id) }}" method="POST"
-                                    class="delete-project-form">
+                                <form action="{{ route('projects.confirm-destroy', $project->id) }}" method="POST">
                                     @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="project_name" value="{{ $project->title }}">
-                                    <button type="button"
-                                        class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded delete-project-btn">
+                                    <input type="text" name="project_name" placeholder="Enter project name">
+                                    <button type="submit"
+                                        class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded">
                                         Delete
                                     </button>
                                 </form>
@@ -60,25 +58,4 @@
         </div>
     </div>
 </div>
-<script>
-// Show a prompt to the user asking to confirm the deletion by typing the project name.
-
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll('.delete-project-btn').forEach(button => {
-        button.addEventListener('click', function(event) {
-            const form = this.closest('form');
-            const projectName = form.querySelector('input[name="project_name"]').value;
-            const userInput = prompt(
-                `Please confirm the deletion by typing the name of the project: '${projectName}'`
-            );
-
-            if (userInput === projectName) {
-                form.submit();
-            } else {
-                alert("The entered name did not match. Deletion cancelled.");
-            }
-        });
-    });
-});
-</script>
 @endsection
