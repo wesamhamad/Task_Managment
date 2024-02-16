@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tasks;
 use App\Models\Project;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -82,18 +83,48 @@ class ProjectController extends Controller
     }
 
     /**
-     * Remove the specified project from storage.
+     * Confirm and delete the specified project from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response|RedirectResponse
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
+    public function confirmAndDestroy(Request $request, Project $project)
+    {
+        // Check if project name matches
+        if ($request->project_name !== $project->title) {
+            return redirect()->back()->with('error_message', 'The selected project name is incorrect.');
+        }
 
-    public function destroy(Project $project)
+        // Validate confirmation
+        try {
+            $request->validate([
+                'project_name' => 'required|in:' . $project->title, // Match project title for confirmation
+            ]);
+        } catch (ValidationException $e) {
+            return redirect()->back()->with('error_message', $e->getMessage())->withErrors($e->errors());
+        }
+
+        // Call the destroy method
+        return $this->destroy($request, $project);
+    }
+
+    /**
+     * Delete the specified project from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Project  $project
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Request $request, Project $project)
     {
         try {
             $project->delete();
             return redirect()->route('projects.index')->with('success_message', 'Project deleted successfully!');
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
+            \Log::error('Error deleting project: ' . $e->getMessage());
+            \Log::error($e->getTraceAsString());
+
             return redirect()->route('projects.index')->with('error_message', 'An error occurred while deleting the project.');
         }
     }
