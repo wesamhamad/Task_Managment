@@ -13,17 +13,18 @@ class HomeController extends Controller
     /** Show the application view based on user type. **/
     public function index()
     {
-        if (Auth::id()) {
+        if (Auth::check()) {
             $usertype = Auth::user()->usertype;
 
             if ($usertype == 'user') {
                 return view('user.home');
-            } else if ($usertype == 'admin') {
+            } elseif ($usertype == 'admin') {
                 return view('admin.adminhome');
             }
-        } else {
-            return redirect()->back();
         }
+
+        // If user is not authenticated or usertype is not set, redirect to login
+        return redirect()->route('login');
     }
 
     public function post()
