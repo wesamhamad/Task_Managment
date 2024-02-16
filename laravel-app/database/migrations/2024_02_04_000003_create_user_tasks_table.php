@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('created_by')->constrained('users');
             $table->string('name');
-            $table->string('assignTo');
             $table->string('deadlin');
             $table->string('status')->defult('Not Started');
             $table->string('description');
