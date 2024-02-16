@@ -23,7 +23,6 @@ class TaskRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'assignTo' => 'required|string|max:255',
             'deadlin' => 'required|date',
             'status' => 'required|string|max:255',
             'description' => 'required|string',
