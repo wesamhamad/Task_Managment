@@ -1,0 +1,31 @@
+name: travellingApp
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  provider: ^6.1.2
+  # font_awesome_flutter: ^10.1.0   # Updated to the latest version that supports null safety
+  flutter_font_icons: ^2.2.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  fonts:
+    - family: Helvetica
+      fonts:
+        - asset: fonts/Helvetica.ttf
+        - asset: fonts/Helvetica-Bold-Font.ttf
+          weight: 700
+        - asset: fonts/Helvetica-Light.ttf
+          weight: 100
